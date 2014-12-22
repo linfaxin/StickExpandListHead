@@ -12,7 +12,7 @@ a simple way to stick your ExpandableListView's head view at the top of list
 ```java
 new StickExpandListHead(expandableListView);
 ```
-Or wrap your `View` with `MaterialRippleLayout` in your layout file:
+Or wrap your `View` with `StickExpandListHead` in your layout file:
 
 ```xml
 <com.linfaxin.stickexpandlisthead.StickExpandListHead
