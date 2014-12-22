@@ -29,8 +29,8 @@ public class StickExpandListHead extends FrameLayout {
 		super(context);
 	}
 
-	public StickExpandListHead(Context context, ExpandableListView listView) {
-		super(context);
+	public StickExpandListHead(ExpandableListView listView) {
+		super(listView.getContext());
 		setListView(listView);
 	}
 
