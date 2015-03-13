@@ -82,9 +82,9 @@ public class StickExpandListHead extends FrameLayout {
                         } else {
                             View firstVisibleChild = listView.getChildAt(0);
                             int top = firstVisibleChild.getTop();
-                            if (top < 0) {
+                            if (top < 0) { // 一旦listview往上滚动，即显示
                                 groupHead.setVisibility(View.VISIBLE);
-                            } else {
+                            } else { // listview拖到顶时不显示groupHead
                                 groupHead.setVisibility(View.INVISIBLE);
                             }
                         }
