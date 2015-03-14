@@ -74,7 +74,24 @@ public class StickExpandListHead extends FrameLayout {
 					showingGroupPosition = -1;
 					if(groupHead != null) groupHead.setVisibility(View.INVISIBLE);
 					return;
-				}else if(groupHead != null) groupHead.setVisibility(View.VISIBLE);
+				}else if(groupHead != null) {
+                    // 如果当前组未展开，不用显示groupHead
+                    if (listView.isGroupExpanded(groupPosition)) {
+                        if (firstVisibleItem != 0) {
+                            groupHead.setVisibility(View.VISIBLE);
+                        } else {
+                            View firstVisibleChild = listView.getChildAt(0);
+                            int top = firstVisibleChild.getTop();
+                            if (top < 0) { // 一旦listview往上滚动，即显示
+                                groupHead.setVisibility(View.VISIBLE);
+                            } else { // listview拖到顶时不显示groupHead
+                                groupHead.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    } else {
+                        groupHead.setVisibility(View.INVISIBLE);
+                    }
+                }
 				
 				//改变groupHead位置。思路：遍历所有显示的Item，判断是否是group然后得到Top移动groupHead
 				if(groupHead != null){
@@ -147,6 +164,14 @@ public class StickExpandListHead extends FrameLayout {
 			groupHead = listView.getExpandableListAdapter().getGroupView(showingGroupPosition,
 					listView.isGroupExpanded(showingGroupPosition), null, listView);
 			if(groupHead!=null && indexOfChild(groupHead)==-1){
+                // 根据取到的groupHead的高度宽度设置params
+                // 不然addView之后groupHead的高度宽度有可能与期待不一致
+                ViewGroup.LayoutParams layoutParams = groupHead.getLayoutParams();
+                if (layoutParams != null) {
+                    params.height = layoutParams.height;
+                    params.width = layoutParams.width;
+                    groupHead.setLayoutParams(layoutParams);    // add by Zhuang Ma
+                }
 				addView(groupHead, params);
 			}
 		}
