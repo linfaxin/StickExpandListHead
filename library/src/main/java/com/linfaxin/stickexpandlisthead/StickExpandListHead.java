@@ -167,9 +167,11 @@ public class StickExpandListHead extends FrameLayout {
                 // 根据取到的groupHead的高度宽度设置params
                 // 不然addView之后groupHead的高度宽度有可能与期待不一致
                 ViewGroup.LayoutParams layoutParams = groupHead.getLayoutParams();
-                params.height = layoutParams.height;
-                params.width = layoutParams.width;
-                groupHead.setLayoutParams(layoutParams);    // add by Zhuang Ma
+                if (layoutParams != null) {
+                    params.height = layoutParams.height;
+                    params.width = layoutParams.width;
+                    groupHead.setLayoutParams(layoutParams);    // add by Zhuang Ma
+                }
 				addView(groupHead, params);
 			}
 		}
